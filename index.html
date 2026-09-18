@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dona Vida: Donación de Órganos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Comic Neue', 'Segoe UI', cursive, sans-serif;
+            background-color: #f7f5ed;
+            color: #1a237e;
+            line-height: 1.6;
+        }
+
+        /* Ventana del Navegador */
+        .browser-container {
+            max-width: 950px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            overflow: hidden;
+            border: 1px solid #d0d0d0;
+        }
+
+        .browser-header {
+            background-color: #e3e8ec;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #c5cbd0;
+        }
+
+        .browser-dots {
+            display: flex;
+            gap: 8px;
+            margin-right: 15px;
+        }
+
+        .dot {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background-color: #ff5f56; }
+        .dot-yellow { background-color: #ffbd2e; }
+        .dot-green { background-color: #27c93f; }
+
+        .browser-url-bar {
+            background-color: #ffffff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            flex-grow: 1;
+            font-size: 0.88rem;
+            color: #4a5568;
+            border: 1px solid #cbd5e0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Encabezado Principal (Header) */
+        header {
+            background-color: #ffffff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: #1e3a8a;
+            font-weight: bold;
+        }
+
+        .header-logo .heart {
+            color: #e11d48;
+            font-size: 2rem;
+        }
+
+        .gov-tag {
+            font-size: 1rem;
+            font-family: 'Caveat', cursive;
+            color: #475569;
+            font-weight: bold;
+        }
+
+        /* Menú de Navegación */
+        nav {
+            background-color: #f1f5f9;
+            padding: 10px 20px;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav a {
+            color: #1e3a8a;
+            text-decoration: none;
+            font-size: 1.15rem;
+            font-weight: bold;
+            font-family: 'Comic Neue', cursive;
+            padding: 4px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover {
+            background-color: #38bdf8;
+            color: #ffffff;
+        }
+
+        /* Banner Turquesa */
+        .banner-turquesa {
+            background-color: #2dd4bf;
+            background-image: radial-gradient(#ffffff 15%, transparent 16%);
+            background-size: 20px 20px;
+            color: #0f172a;
+            text-align: center;
+            padding: 25px 15px;
+            border-top: 3px solid #14b8a6;
+            border-bottom: 3px solid #14b8a6;
+        }
+
+        .banner-turquesa h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: #0369a1;
+            text-shadow: 1px 1px 0px #ffffff;
+            letter-spacing: 2px;
+        }
+
+        /* Contenido General */
+        .content-container {
+            padding: 35px 40px;
+        }
+
+        .section-title {
+            font-family: 'Caveat', cursive;
+            font-size: 3.2rem;
+            color: #1e3a8a;
+            margin-bottom: 20px;
+            text-align: left;
+            line-height: 1.1;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 30px;
+            align-items: center;
+            margin-bottom: 45px;
+        }
+
+        .text-block p {
+            font-size: 1.25rem;
+            color: #1e293b;
+            margin-bottom: 20px;
+            text-align: justify;
+            font-weight: 600;
+        }
+
+        .text-block p::before {
+            content: "• ";
+            color: #2563eb;
+            font-size: 1.5rem;
+        }
+
+        /* Marco Decorativo - Corazón */
+        .illustration-card {
+            border: 4px dashed #f43f5e;
+            border-radius: 20px;
+            padding: 20px 10px;
+            background-color: #fffdf5;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(225, 29, 72, 0.1);
+        }
+
+        .illustration-card::before {
+            content: "🌸 ★ 🌼 ★ 🌸 ★ 🌼 ★ 🌸";
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffffff;
+            padding: 0 10px;
+            font-size: 0.9rem;
+            color: #e11d48;
+        }
+
+        .heart-svg {
+            width: 100%;
+            max-width: 240px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Ilustración SVG de Manos y Corazón */
+        .hands-card {
+            border: 3px dashed #38bdf8;
+            border-radius: 20px;
+            padding: 15px;
+            background-color: #f0f9ff;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.15);
+        }
+
+        .hands-svg {
+            width: 100%;
+            max-width: 260px;
+            height: auto;
+        }
+
+        /* Ilustración SVG de Órganos */
+        .organs-card {
+            border: 3px dashed #22c55e;
+            border-radius: 20px;
+            padding: 15px;
+            background-color: #f0fdf4;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.15);
+        }
+
+        /* Separador entre Secciones */
+        .section-divider {
+            border: none;
+            border-top: 2px dashed #cbd5e1;
+            margin: 20px 0 40px 0;
+        }
+
+        /* Lista de Órganos y Tejidos */
+        .organs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px 30px;
+            background-color: #ffffff;
+            border: 2px dashed #22c55e;
+            padding: 25px 35px;
+            border-radius: 16px;
+            margin-top: 15px;
+        }
+
+        .organ-item {
+            font-size: 1.35rem;
+            font-weight: bold;
+            color: #1e3a8a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .organ-item span {
+            color: #f59e0b;
+            font-size: 1.5rem;
+        }
+
+        /* Pie de página (Footer) */
+        footer {
+            background-color: #f8fafc;
+            border-top: 2px solid #e2e8f0;
+            padding: 20px;
+            text-align: center;
+            font-size: 1rem;
+            color: #475569;
+            font-weight: bold;
+        }
+
+        footer a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        /* Adaptabilidad Móvil */
+        @media (max-width: 768px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .banner-turquesa h1 {
+                font-size: 2.5rem;
+            }
+            .organs-grid {
+                grid-template-columns: 1fr;
+            }
+            .content-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="browser-container">
+        <!-- Barra superior del navegador -->
+        <div class="browser-header">
+            <div class="browser-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+            </div>
+            <div class="browser-url-bar">
+                <span>🔒</span>https://www.gob.mx/cenatra/acciones-y-programas/donacion-49889
+            </div>
+        </div>
+
+        <!-- Cabecera (Header) con título y menú -->
+        <header>
+            <div class="header-logo">
+                <span class="heart">❤️</span> Dona Vida: Donación de Órganos
+            </div>
+            <div class="gov-tag">Gobierno de México</div>
+        </header>
+
+        <!-- Menú de Navegación distribuido -->
+        <nav>
+            <ul>
+                <li><a href="#que-es">¿Qué es la donación de órganos?</a></li>
+                <li><a href="#quien-puede">¿Quién puede donar órganos?</a></li>
+                <li><a href="#que-organos">¿Qué órganos y tejidos se pueden donar?</a></li>
+                <!-- Enlace directo a la página oficial del gobierno de México -->
+                <li><a href="https://www.gob.mx/cenatra" target="_blank" rel="noopener noreferrer">Regístrate como donador de órganos</a></li>
+            </ul>
+        </nav>
+
+        <!-- Banner Turquesa -->
+        <div class="banner-turquesa">
+            <h1>✦ Donación de Órganos ✦</h1>
+        </div>
+
+        <!-- Sección Principal que agrupa los Artículos -->
+        <section class="content-container">
+
+            <!-- ARTÍCULO 1: ¿Qué es la donación de órganos? -->
+            <article id="que-es">
+                <h2 class="section-title">¿Qué es la donación de órganos?</h2>
+
+                <div class="grid-layout">
+                    <div class="text-block">
+                        <p>La donación de órganos es el acto voluntario y altruista de dar órganos o tejidos sanos para que sean trasplantados a una persona enferma que los necesita para salvar su vida o mejorar su salud.</p>
+                        <p>Para que una donación se realice es necesaria la autorización de las personas que toman la decisión: el propio donador, sobre todo en la donación en vida; o de los disponentes, es decir las personas que deciden donar los órganos o tejidos de un familiar que perdió la vida.</p>
+                    </div>
+
+                    <!-- Imagen Ilustrativa del Artículo 1 (Corazón Vectorial SVG) -->
+                    <div class="illustration-card">
+                        <svg class="heart-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M100 175 C20 120 10 65 50 35 C75 15 95 30 100 45 C105 30 125 15 150 35 C190 65 180 120 100 175 Z" fill="#f43f5e" stroke="#e11d48" stroke-width="4" stroke-linejoin="round"/>
+                            <path d="M60 45 C50 55 45 75 50 95" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+                            <circle cx="145" cy="55" r="4" fill="#ffffff" opacity="0.8"/>
+                        </svg>
+                    </div>
+                </div>
+            </article>
+
+            <hr class="section-divider">
+
+            <!-- ARTÍCULO 2: ¿Quién puede donar órganos? -->
+            <article id="quien-puede">
+                <div class="grid-layout">
+                    <div class="text-block">
+                        <h2 class="section-title">¿Quién puede donar órganos?</h2>
+                        <p>Cualquier persona puede ser donante de órganos, ya que la posibilidad real se determina mediante una evaluación médica detallada en el momento de la donación y no por criterios rígidos de edad o salud previa.</p>
+                    </div>
+
+                    <!-- Imagen Ilustrativa del Artículo 2 (Manos con Corazón) -->
+                    <div class="hands-card">
+                        <svg class="hands-svg" viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 150,195 C 100,150 70,110 85,75 C 100,40 135,45 150,75 C 165,45 200,40 215,75 C 230,110 200,150 150,195 Z" fill="#ff7675" stroke="#d63031" stroke-width="4"/>
+                            <rect x="141" y="90" width="18" height="40" rx="3" fill="#ffffff" stroke="#d63031" stroke-width="2"/>
+                            <rect x="130" y="101" width="40" height="18" rx="3" fill="#ffffff" stroke="#d63031" stroke-width="2"/>
+                            
+                            <path d="M 60,130 C 60,170 100,210 135,215 C 130,225 110,240 70,230 C 50,225 40,200 45,170 Z" fill="#ffdfba" stroke="#b2bec3" stroke-width="3"/>
+                            <path d="M 60,130 C 70,120 85,130 80,150 L 130,205" fill="none" stroke="#b2bec3" stroke-width="3"/>
+
+                            <path d="M 240,130 C 240,170 200,210 165,215 C 170,225 190,240 230,230 C 250,225 260,200 255,170 Z" fill="#ffdfba" stroke="#b2bec3" stroke-width="3"/>
+                            <path d="M 240,130 C 230,120 215,130 220,150 L 170,205" fill="none" stroke="#b2bec3" stroke-width="3"/>
+                        </svg>
+                    </div>
+                </div>
+            </article>
+
+            <hr class="section-divider">
+
+            <!-- ARTÍCULO 3: ¿Qué órganos y tejidos se pueden donar? -->
+            <article id="que-organos">
+                <h2 class="section-title">¿Qué órganos y tejidos se pueden donar?</h2>
+                
+                <div class="grid-layout">
+                    <div class="text-block">
+                        <p>Se pueden donar órganos vitales, e incluso al fallecer el cuerpo humano puede ofrecer una segunda oportunidad de vida a múltiples personas.</p>
+                        
+                        <!-- Lista de Órganos -->
+                        <div class="organs-grid">
+                            <div class="organ-item"><span>★</span> Corazón</div>
+                            <div class="organ-item"><span>★</span> Pulmones</div>
+                            <div class="organ-item"><span>★</span> Riñón</div>
+                            <div class="organ-item"><span>★</span> Hígado</div>
+                            <div class="organ-item"><span>★</span> Córneas</div>
+                            <div class="organ-item"><span>★</span> Piel</div>
+                            <div class="organ-item"><span>★</span> Páncreas</div>
+                            <div class="organ-item"><span>★</span> Huesos</div>
+                        </div>
+                    </div>
+
+                    <!-- Imagen Ilustrativa del Artículo 3 (Estrella / Cruz Médica) -->
+                    <div class="organs-card">
+                        <svg class="hands-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="100" cy="100" r="80" fill="#22c55e" opacity="0.15"/>
+                            <path d="M 100,30 L 100,170 M 30,100 L 170,100" stroke="#22c55e" stroke-width="20" stroke-linecap="round"/>
+                            <circle cx="100" cy="100" r="25" fill="#ffffff"/>
+                            <path d="M 100,85 L 100,115 M 85,100 L 115,100" stroke="#e11d48" stroke-width="6" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- Pie de página (Footer) con Copyright y Datos de Contacto -->
+        <footer>
+            <p>© CopyRight 2026 Donación de Órganos - Todos los derechos reservados.</p>
+            <p>Contacto: <a href="mailto:contacto@donacionorganos.gob.mx">contacto@donacionorganos.gob.mx</a> | Teléfono: 800-128-4567</p>
+        </footer>
+    </div>
+
+</body>
+</html>
